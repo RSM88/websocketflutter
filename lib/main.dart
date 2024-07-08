@@ -8,16 +8,25 @@ import 'package:http/http.dart' as http;
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
+import 'services/notification_services.dart';
+
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> map = {'authorization': 'Bearer 4fgjf46f56'};
+    //Map<String, dynamic> map = {'authorization': 'Bearer 4fgjf46f56'};
+
+    initializeNotifications();
 
     return new MaterialApp(
       home: new MyHomePage(),
     );
+  }
+
+  Future<void> initializeNotifications() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await initNotifications();
   }
 }
 
@@ -81,6 +90,7 @@ class MyHomePageState extends State<MyHomePage> {
 
       channel.stream.listen((message) {
         print('Received: $message');
+        mostrarNotificacion();
       });
 
       channel.sink.add('Hello, WebSocket!');
