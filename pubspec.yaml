@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  socket_io_client:
+  http:
   web_socket_channel:
 
 dev_dependencies:
