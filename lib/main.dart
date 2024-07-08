@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:http/http.dart' as http;
@@ -86,8 +87,9 @@ class MyHomePageState extends State<MyHomePage> {
       floatingActionButton: new FloatingActionButton(
           child: new Icon(Icons.send),
           //onPressed: _sendMyMessage,
-          //onPressed: newConnection, // <--*
-          onPressed: ConnectionWS),
+          //onPressed: newConnection,
+          //onPressed: ConnectionWS),
+          onPressed: Procesos),
     );
   }
 
@@ -104,14 +106,14 @@ class MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  void ConnectionWS() async {
+  void ConnectionWS(token) async {
     final uri = Uri.parse(
         "ws://b851-2806-2f0-90a0-da95-b18f-e798-92b0-ed0d.ngrok-free.app");
     final headersX = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
       'authorization': 'Bearer 151dfg51dffbdf',
-      'othertoken': 'e15345dsfsdfhgyj'
+      'othertoken': token
     };
 
     try {
@@ -174,7 +176,7 @@ class MyHomePageState extends State<MyHomePage> {
             .build());*/
 
     IO.Socket sssssocket = IO.io(
-        serverURL,
+        "ws://" + serverURL,
         IO.OptionBuilder()
             .setTransports(['websocket']) // for Flutter or Dart VM
             .disableAutoConnect() // disable auto-connection
@@ -193,5 +195,37 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   final serverURL =
-      'ws://b851-2806-2f0-90a0-da95-b18f-e798-92b0-ed0d.ngrok-free.app';
+      'b851-2806-2f0-90a0-da95-b18f-e798-92b0-ed0d.ngrok-free.app';
+
+  // --- --- --- --- --- --- --- --- --- --- --- ---
+
+  Future postData() async {
+    var token = "empty";
+    try {
+      final response =
+          await post(Uri.parse("https://" + serverURL + "/subscribe"), body: {
+        //"title": "Anything",
+        //"body": "Post body",
+        //"userId": "1",
+      });
+
+      final sdsds = json.decode(response.body);
+      token = sdsds["token"];
+
+      print(response.body);
+    } catch (er) {
+      print(er);
+    }
+
+    return token;
+  }
+  // --- --- --- --- --- --- --- --- --- --- --- ---
+
+  void Procesos() async {
+    var token = await postData();
+
+    if (token != "empty") {
+      ConnectionWS(token);
+    }
+  }
 }
