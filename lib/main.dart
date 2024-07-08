@@ -90,7 +90,8 @@ class MyHomePageState extends State<MyHomePage> {
 
       channel.stream.listen((message) {
         print('Received: $message');
-        mostrarNotificacion();
+        final jsonData = json.decode(message);
+        mostrarNotificacion(jsonData["title"], jsonData["message"]);
       });
 
       channel.sink.add('Hello, WebSocket!');
