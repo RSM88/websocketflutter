@@ -1,14 +1,10 @@
-import 'dart:io';
-import 'dart:convert';
+//import 'dart:io';
+//import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
-import 'package:http/http.dart';
+//import 'package:http/http.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:http/http.dart' as http;
-import 'package:web_socket_channel/status.dart' as status;
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+//import 'package:web_socket_channel/io.dart';
 import 'package:webcosketflutter/services/back_services.dart';
 
 import 'services/notification_services.dart';
@@ -112,7 +108,7 @@ class MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: new FloatingActionButton(
-          child: new Icon(Icons.send), onPressed: Procesos),
+          child: new Icon(Icons.send), onPressed: test()),
     );
   }
 
@@ -122,6 +118,7 @@ class MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+/*
   void ConnectionWS(token) async {
     //final uri = Uri.parse(
     //"ws://b851-2806-2f0-90a0-da95-b18f-e798-92b0-ed0d.ngrok-free.app");
@@ -152,12 +149,16 @@ class MyHomePageState extends State<MyHomePage> {
       print('Error: $e');
     }
   }
+  */
 
   //final serverURL =
   //'b851-2806-2f0-90a0-da95-b18f-e798-92b0-ed0d.ngrok-free.app';
   final serverURL = '186.96.0.239:3000';
+
+  test() {}
   // --- --- --- --- --- --- --- --- --- --- --- ---
 
+/*
   Future postData() async {
     var token = "empty";
     try {
@@ -175,8 +176,10 @@ class MyHomePageState extends State<MyHomePage> {
 
     return token;
   }
+  */
   // --- --- --- --- --- --- --- --- --- --- --- ---
 
+/*
   void Procesos() async {
     var token = await postData();
 
@@ -184,4 +187,5 @@ class MyHomePageState extends State<MyHomePage> {
       ConnectionWS(token);
     }
   }
+  */
 }
