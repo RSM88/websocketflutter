@@ -75,15 +75,20 @@ void procesos() async {
 }
 
 // ----- ----- ----- ----- ----- ----- -----
-//const serverURL = '186.96.0.239:3000';
-const serverURL = '68bb-2806-2f0-90a0-da95-ac58-74fa-a0c3-936b.ngrok-free.app';
+//const serverURL = '186.96.0.239:3000'; //Server
+//const serverURL = '68bb-2806-2f0-90a0-da95-ac58-74fa-a0c3-936b.ngrok-free.app'; //puente http ngrok
+//const serverURL = '5e9b-2806-2f0-90a0-da95-31e5-64bb-b5f2-3b2b.ngrok-free.app';
+//const serverURL = 'b2a1-2806-2f0-90a1-4522-2d79-f0db-8796-aa00.ngrok-free.app';
+const serverURL = '192.168.137.1:3000';
+//const serverURL = '192.168.100.159:3000';
 
 //--------------------------------
 Future postData() async {
   var token = "empty";
   try {
     final response =
-        await post(Uri.parse("https://$serverURL/subscribe"), body: {});
+        //await post(Uri.parse("https://$serverURL/subscribe"), body: {});  //puente http ngrok
+        await post(Uri.parse("http://$serverURL/subscribe"), body: {});
 
     final sdsds = json.decode(response.body);
     token = sdsds["token"];

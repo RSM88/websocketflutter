@@ -1,5 +1,7 @@
 //import 'dart:io';
 //import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 //import 'package:http/http.dart';
@@ -12,6 +14,10 @@ import 'services/notification_services.dart';
 //void main() => runApp(new MyApp());
 
 void main() async {
+
+    // Added to fix HandshakeEsception
+  //HttpOverrides.global = MyHttpOverrides();
+
   WidgetsFlutterBinding.ensureInitialized();
   await Permission.notification.isDenied.then(
     (value) {
@@ -21,6 +27,9 @@ void main() async {
     },
   );
   await initializeService();
+
+
+
   runApp(MyApp());
 }
 
@@ -189,3 +198,14 @@ class MyHomePageState extends State<MyHomePage> {
   }
   */
 }
+
+
+// Added to fix HandshakeEsception
+/*
+ class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}*/
