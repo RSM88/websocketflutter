@@ -23,7 +23,12 @@ Future<void> initializeService() async {
       onBackground: onIosBackground,
     ),
     androidConfiguration: AndroidConfiguration(
-        onStart: onStart, isForegroundMode: true, autoStart: true),
+        onStart: onStart, 
+        isForegroundMode: true, 
+        autoStart: true,
+        //foregroundServiceType: AndroidForegroundServiceType.dataSync, // Specify the foreground service type
+        foregroundServiceNotificationId: 888, // Notification ID for foreground service
+        ),
   );
 }
 
